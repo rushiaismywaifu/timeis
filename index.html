@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顯示目前時間與計時器</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body onload="updateTime()">
+    <div class="container">
+        <h1 id="time">目前時間為</h1>
+        <h2>計時器</h2>
+        <div class="timer-inputs">
+            <label for="inputHours">時:</label>
+            <input type="number" id="inputHours" min="0">
+            <label for="inputMinutes">分:</label>
+            <input type="number" id="inputMinutes" min="0">
+            <label for="inputSeconds">秒:</label>
+            <input type="number" id="inputSeconds" min="0">
+            <button onclick="startTimer()">開始計時</button>
+        </div>
+        <h2 id="timer">剩餘時間：</h2>
+        <audio id="alarm" src="sound.mp3" preload="auto"></audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
