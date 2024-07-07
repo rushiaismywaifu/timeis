@@ -21,6 +21,17 @@
             <button onclick="startTimer()">開始計時</button>
         </div>
         <h2 id="timer">剩餘時間：</h2>
+
+        <h2>設定鬧鐘</h2>
+        <div class="alarm-inputs">
+            <label for="alarmHours">時:</label>
+            <input type="number" id="alarmHours" min="0" max="23">
+            <label for="alarmMinutes">分:</label>
+            <input type="number" id="alarmMinutes" min="0" max="59">
+            <button onclick="setAlarm()">設定鬧鐘</button>
+        </div>
+        <h2 id="alarmStatus">鬧鐘狀態：</h2>
+
         <audio id="alarm" src="sound.mp3" preload="auto"></audio>
     </div>
     <script src="script.js"></script>
