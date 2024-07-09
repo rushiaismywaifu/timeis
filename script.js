@@ -1,7 +1,7 @@
 let countdown;
 let timerInterval;
 let alarmTime;
-let alarmInterval;
+let currentHour = new Date().getHours();
 
 function updateTime() {
     const now = new Date();
@@ -11,6 +11,7 @@ function updateTime() {
     document.getElementById('time').textContent = `目前時間為${hours}時${minutes}分${seconds}秒`;
 
     checkAlarm(now);
+    checkHourlyChange(now);
 }
 
 function startTimer() {
@@ -59,7 +60,7 @@ function setAlarm() {
     alarmTime.setHours(hours, minutes, 0, 0);
 
     if (alarmTime <= now) {
-        alarmTime.setDate(alarmTime.getDate() + 1);  // If the time is already past, set for the next day
+        alarmTime.setDate(alarmTime.getDate() + 1);
     }
 
     document.getElementById('alarmStatus').textContent = `鬧鐘設定於 ${String(alarmTime.getHours()).padStart(2, '0')}:${String(alarmTime.getMinutes()).padStart(2, '0')}`;
@@ -67,11 +68,37 @@ function setAlarm() {
 
 function checkAlarm(currentTime) {
     if (alarmTime && currentTime >= alarmTime) {
-        clearInterval(alarmInterval);
         document.getElementById('alarmStatus').textContent = '鬧鐘響了！';
         document.getElementById('alarm').play();
-        alarmTime = null;  // Reset alarmTime
+        alarmTime = null;
     }
 }
 
-setInterval(updateTime, 1000); // 每秒更新一次時間
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function setRandomBackground() {
+    const color1 = getRandomColor();
+    const color2 = getRandomColor();
+    document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+}
+
+function checkHourlyChange(currentTime) {
+    const newHour = currentTime.getHours();
+    if (newHour !== currentHour) {
+        currentHour = newHour;
+        setRandomBackground();
+    }
+}
+
+window.onload = function() {
+    updateTime();
+    setRandomBackground();
+    setInterval(updateTime, 1000);
+};
