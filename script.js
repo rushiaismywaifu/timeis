@@ -5,10 +5,22 @@ let currentHour = new Date().getHours();
 
 function updateTime() {
     const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const date = String(now.getDate()).padStart(2, '0');
+    const day = now.getDay();
+    const daysOfWeek = ['日', '一', '二', '三', '四', '五', '六'];
+    const dayOfYear = Math.floor((now - new Date(year, 0, 0)) / 1000 / 60 / 60 / 24);
+    const weekOfYear = Math.ceil((dayOfYear + new Date(year, 0, 1).getDay() + 1) / 7);
+    const dayOfWeek = daysOfWeek[day];
+
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
-    document.getElementById('time').textContent = `目前時間為${hours}時${minutes}分${seconds}秒`;
+
+    document.getElementById('date').textContent = `今天是 ${year} 年 ${month} 月 ${date} 日 星期${dayOfWeek}`;
+    document.getElementById('dayOfYear').textContent = `是今年的第 ${dayOfYear} 天，今年的第 ${weekOfYear} 周第 ${day + 1} 天`;
+    document.getElementById('time').textContent = `目前時間為 ${hours} 時 ${minutes} 分 ${seconds} 秒`;
 
     checkAlarm(now);
     checkHourlyChange(now);
