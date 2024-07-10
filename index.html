@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>顯示目前時間與計時器</title>
+    <title>時間小工具</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="dark-mode-toggle">
+        <button id="darkModeButton" onclick="toggleDarkMode()" title="切換暗黑模式">
+            <img id="darkModeIcon" src="image/sun-icon.png" alt="切換模式">
+        </button>
+    </div>
+    <div class="time-format-toggle">
+        <button id="timeFormatButton" onclick="toggleTimeFormat()" title="切換時間格式">
+            <img id="timeFormatIcon" src="image/24-hour-icon.png" alt="切換時間格式">
+        </button>
+    </div>
     <div class="container">
         <h1 id="date">今天是</h1>
         <h2 id="dayOfYear"></h2>

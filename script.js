@@ -2,6 +2,8 @@ let countdown;
 let timerInterval;
 let alarmTime;
 let currentHour = new Date().getHours();
+let darkMode = false;
+let is24HourFormat = true; // 默認使用24小時格式
 
 function updateTime() {
     const now = new Date();
@@ -14,16 +16,25 @@ function updateTime() {
     const weekOfYear = Math.ceil((dayOfYear + new Date(year, 0, 1).getDay() + 1) / 7);
     const dayOfWeek = daysOfWeek[day];
 
-    const hours = String(now.getHours()).padStart(2, '0');
+    let hours = now.getHours();
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
 
+    let period = '';
+    if (!is24HourFormat) {
+        period = hours >= 12 ? '下午' : '上午';
+        hours = hours % 12 || 12;
+    }
+    hours = String(hours).padStart(2, '0');
+
     document.getElementById('date').textContent = `今天是 ${year} 年 ${month} 月 ${date} 日 星期${dayOfWeek}`;
     document.getElementById('dayOfYear').textContent = `是今年的第 ${dayOfYear} 天，今年的第 ${weekOfYear} 周第 ${day + 1} 天`;
-    document.getElementById('time').textContent = `目前時間為 ${hours} 時 ${minutes} 分 ${seconds} 秒`;
+    document.getElementById('time').textContent = `目前時間為 ${period} ${hours} 時 ${minutes} 分 ${seconds} 秒`;
 
     checkAlarm(now);
-    checkHourlyChange(now);
+    if (!darkMode) {
+        checkHourlyChange(now);
+    }
 }
 
 function startTimer() {
@@ -96,9 +107,11 @@ function getRandomColor() {
 }
 
 function setRandomBackground() {
-    const color1 = getRandomColor();
-    const color2 = getRandomColor();
-    document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+    if (!darkMode) {
+        const color1 = getRandomColor();
+        const color2 = getRandomColor();
+        document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+    }
 }
 
 function checkHourlyChange(currentTime) {
@@ -107,6 +120,25 @@ function checkHourlyChange(currentTime) {
         currentHour = newHour;
         setRandomBackground();
     }
+}
+
+function toggleDarkMode() {
+    darkMode = !darkMode;
+    document.body.classList.toggle('dark-mode');
+    if (darkMode) {
+        document.body.style.background = 'black';
+    } else {
+        setRandomBackground();
+    }
+    const icon = darkMode ? 'image/moon-icon.png' : 'image/sun-icon.png';
+    document.getElementById('darkModeIcon').src = icon;
+}
+
+function toggleTimeFormat() {
+    is24HourFormat = !is24HourFormat;
+    const icon = is24HourFormat ? 'image/24-hour-icon.png' : 'image/12-hour-icon.png';
+    document.getElementById('timeFormatIcon').src = icon;
+    updateTime(); // 立即更新時間顯示
 }
 
 window.onload = function() {

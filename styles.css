@@ -11,6 +11,11 @@ body {
     color: #fff;
 }
 
+body.dark-mode {
+    background: black;
+    color: #fff;
+}
+
 .container {
     background: rgba(0, 0, 0, 0.7);
     padding: 20px;
@@ -43,4 +48,38 @@ button {
 
 button:hover {
     background-color: #357ABD;
+}
+
+.dark-mode-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.dark-mode-toggle button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dark-mode-toggle img {
+    width: 30px;
+    height: 30px;
+}
+
+.time-format-toggle {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+}
+
+.time-format-toggle button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.time-format-toggle img {
+    width: 30px;
+    height: 30px;
 }
